@@ -1,0 +1,125 @@
+
+Optimization I:
+
+Loop Fusion
+
+void do_loops(int *a, int *b, int *c, int N)
+{
+  int i;
+  for (i=N-1; i>=1; i--) {
+    a[i] = a[i] + 1;
+  }
+  for (i=1; i<N; i++) {
+    b[i] = a[i+1] + 3;
+    c[i] = b[i-1] + 2;
+  }
+}
+
+
+Optimization II:
+
+Loop Peeling
+
+void do_loops(int *a, int *b, int *c, int N)
+{
+  int i;
+  
+  for (i=N-1; i>=1; i-=1) {
+    a[i] = a[i] + 1;
+  }
+  
+  if(N > 0){
+    b[1] = a[2] + 3;
+  }
+
+  for (i=2; i<N; i++) {
+    b[i] = a[i+1] + 3;
+  }
+
+   if(N > 0){
+    c[1] = b[0] + 3;
+  }
+  for (i=2; i<N; i++) {
+    c[i] = b[i-1] + 2;
+  }
+}
+
+
+Optimization III:
+
+Loop Reversal
+
+void do_loops(int *a, int *b, int *c, int N)
+{
+  int i;
+  
+  for (i=1; i <= N-1; i+=1) {
+    a[i] = a[i] + 1;
+  }
+  
+  for (i=N-1; i>=1; i--) {
+    b[i] = a[i+1] + 3;
+  }
+
+
+  for (i=N-1; i>=1; i--) {
+    c[i] = b[i-1] + 2;
+  }
+}
+
+
+Optimization IV:
+
+Loop Strip Mining
+
+void do_loops(int *a, int *b, int *c, int N)
+{
+  int i;
+  int j;
+  
+  for (i=N-1; i>=1; i--) {
+    a[i] = a[i] + 1;
+  }
+  
+  for (j=1; j<N; j+=100) {
+    for (i=j; i < j+100; i++){
+       b[i] = a[i+1] + 3;
+  }
+  }
+
+  for(j=1; j<N; j+=100){
+  for (i=j; i< j+100; i++) {
+    c[i] = b[i-1] + 2;
+  }
+}
+}
+
+
+Optimization V:
+
+Loop Unrolling
+
+void do_loops(int *a, int *b, int *c, int N)
+{
+  int i;
+  for (i=N-1; i>=1; i--) {
+    a[i] = a[i] + 1;
+  }
+  
+  for (i=1; i<N; i+=4) {
+    b[i] = a[i+1] + 3;
+    b[i+1] = a[i+2] + 3;
+    b[i+2] = a[i+3] + 3;
+    b[i+3] = a[i+4] + 3;
+  }
+
+  for (i=1; i<N; i+=4) {
+    c[i] = b[i-1] + 2;
+    c[i+1] = b[i] + 2;
+    c[i+2] = b[i+1] + 2;
+    c[i+3] = b[i+2] + 2;
+  }
+}
+
+
+

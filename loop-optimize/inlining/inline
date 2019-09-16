@@ -1,0 +1,8 @@
+#!/bin/bash    
+
+for run in {1..5}
+do
+   g++ -O3 -o func_inlining func_inlining.cpp
+   ./func_inlining 100000000
+   echo "" >> num.txt
+done
