@@ -11,19 +11,19 @@ topics such as scalability and load balance.
 Topics
 ======
 
- Loop transformations and optimizations
- Software pipelining 
- Cache performance (how code interacts with the cache & memory hierarchy) 
- Code profiling 
- Performance counters 
- Parallelism & Amdahl's Law 
- Parallel programming models 
- Shared memory parallel programming for performance and scalability 
- OpenMP 
- Synchronization 
- User-level thread libraries (C++ thread, pthreads, etc.)  
- Memory Consistency 
- Lock-free Data Structures 
- Cluster programming 
- Directives for GPU programming   
+1. Loop transformations and optimizations
+2. Software pipelining 
+3. Cache performance (how code interacts with the cache & memory hierarchy) 
+4. Code profiling 
+5. Performance counters   
+6. Parallelism & Amdahl's Law  
+7. Parallel programming models   
+8. Shared memory parallel programming for performance and scalability   
+9. OpenMP
+10. Synchronization 
+11. User-level thread libraries (C++ thread, pthreads, etc.)  
+12. Memory Consistency  
+13. Lock-free Data Structures  
+14. Cluster programming   
+15. Directives for GPU programming     
 
