@@ -2,7 +2,6 @@
 
 for run in {1..5}
 do
-  gcc -o loop_performance loop_performance.c
- ./loop_performance 10000000 >> num.txt
-  echo "" >> num.txt
+   gcc -w -o loop_performance loop_performance.c
+ ./loop_performance 10000000 
 done
