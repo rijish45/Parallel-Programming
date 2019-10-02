@@ -41,13 +41,14 @@ void multiply_one(double A[][N], double B[][N], double C[][N])
 } 
 
 
+
 void multiply_two(double A[N][N], double B[N][N], double C[N][N]) 
 { 
     int i, j, k; 
     double temp;
-    for (k = 0; k < N; k++) 
+    for (i = 0; i < N; i++) 
     {
-      for (i = 0; i < N; i++) 
+      for (k = 0; k < N; k++) 
         {  temp = A[i][k];
             for (j = 0; j < N; j++) 
                 C[i][j] += temp *  B[k][j]; 
@@ -72,6 +73,27 @@ void multiply_three(double A[N][N], double B[N][N], double C[N][N])
     } 
 } 
 
+void multiply_tiling(double A[][N], double B[][N], double C[][N]) 
+{ 
+    int i, j, k, ii, jj; 
+    double sum;
+    for (i = 0; i < N; i += 64) { 
+        for (j = 0; j < N; j += 64 ) { 
+            for (ii = i; ii < (i+64); ii++){
+                for (jj = j; jj < (j+64); jj++){
+                     sum = 0; 
+                        for (k = 0; k < N; k++) {
+                            sum += A[ii][k] *  B[k][jj]; 
+                        }
+                    C[ii][jj] = sum;
+                }
+            }
+                
+        }
+            
+    } 
+} 
+
 int main()
 {
 	srand(time(NULL));
@@ -90,7 +112,7 @@ int main()
 
 	
 	int choice;
-	cout << "Please enter a nest ordering between one to three: " << endl;
+	cout << "Please enter a nest ordering between one to four: " << endl;
 	cin >> choice;
 
 	struct timeval start_time, end_time;
@@ -106,20 +128,21 @@ int main()
 			multiply_two(A,B,C);
 			gettimeofday(&end_time, NULL);
 			break;
-		default:
+		case 3:
 			gettimeofday(&start_time, NULL);
 			multiply_three(A,B,C);
 			gettimeofday(&end_time, NULL);
-
+        default:
+            gettimeofday(&start_time, NULL);
+            multiply_tiling(A,B,C);
+            gettimeofday(&end_time, NULL);
+        
 	}
-
-
-
-	double elapsed_us = calc_time(start_time, end_time);
-  	double elapsed_ms = elapsed_us / 1000.0;
-  	cout << "Time= " <<  elapsed_ms << " milliseconds." << endl;
-  
-    return 0; 
+ 
+double elapsed_us = calc_time(start_time, end_time);
+double elapsed_s = elapsed_us / 1000000.0;
+cout << "Time= " <<  elapsed_s << " seconds." << endl;
+return 0; 
 } 
 
 
